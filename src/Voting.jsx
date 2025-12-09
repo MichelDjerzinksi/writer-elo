@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
-import { calculateNewRatings } from './elo'
+
 
 function Voting() {
     const [authors, setAuthors] = useState([])
@@ -42,25 +42,25 @@ function Voting() {
     }
 
     const handleVote = async (winner, loser) => {
-        const { newWinnerElo, newLoserElo } = calculateNewRatings(winner.elo, loser.elo)
-
-        // Optimistic Update
+        // Optimistic Update (Guessing new ELO for UI responsiveness)
+        // Note: Real ELO is calculated on server, so next fetch will correct any drift
         const updatedAuthors = authors.map(a => {
-            if (a.id === winner.id) return { ...a, elo: newWinnerElo, matches_played: a.matches_played + 1 }
-            if (a.id === loser.id) return { ...a, elo: newLoserElo, matches_played: a.matches_played + 1 }
+            if (a.id === winner.id) return { ...a, matches_played: a.matches_played + 1 }
+            if (a.id === loser.id) return { ...a, matches_played: a.matches_played + 1 }
             return a
         })
 
         setAuthors(updatedAuthors)
         pickRandomMatchup(updatedAuthors)
 
-        // DB Update
+        // Secure DB Update
         try {
-            await supabase.from('authors').upsert([
-                { id: winner.id, name: winner.name, elo: newWinnerElo, matches_played: winner.matches_played + 1 },
-                { id: loser.id, name: loser.name, elo: newLoserElo, matches_played: loser.matches_played + 1 }
-            ])
-            await supabase.from('matches').insert([{ winner_id: winner.id, loser_id: loser.id }])
+            const { error } = await supabase.rpc('vote_matchup', {
+                winner_id: winner.id,
+                loser_id: loser.id
+            })
+
+            if (error) throw error
         } catch (err) {
             console.error('Error saving vote:', err)
         }

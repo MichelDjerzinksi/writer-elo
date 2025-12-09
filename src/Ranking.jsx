@@ -24,17 +24,7 @@ function Ranking() {
         setLoading(false)
     }
 
-    const addAuthor = async (e) => {
-        e.preventDefault()
-        const name = e.target.authorName.value
-        if (!name) return
 
-        const { data, error } = await supabase.from('authors').insert([{ name }]).select()
-        if (!error && data) {
-            setAuthors([...authors, data[0]].sort((a, b) => b.elo - a.elo))
-            e.target.reset()
-        }
-    }
 
     if (loading) return <div className="loading">...</div>
 
@@ -56,9 +46,6 @@ function Ranking() {
                 </tbody>
             </table>
 
-            <form onSubmit={addAuthor} className="add-form">
-                <input name="authorName" placeholder="add author..." autoComplete="off" />
-            </form>
         </div>
     )
 }
