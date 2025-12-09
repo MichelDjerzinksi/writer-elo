@@ -78,6 +78,7 @@ h1 {
 .ranking-container {
   width: 100%;
   max-width: 400px;
+  margin-top: 4rem;
 }
 
 .ranking-table {
