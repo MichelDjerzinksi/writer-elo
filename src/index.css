@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap');
+
+:root {
+  --font-main: 'Times New Roman', serif;
+}
+
+body {
+  margin: 0;
+  padding: 2rem;
+  font-family: var(--font-main);
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+button {
+  background: none;
+  border: none;
+  font-family: var(--font-main);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  color: black;
+}
+
+button:hover {
+  text-decoration: underline;
+}
+
+.nav-link {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  font-size: 1rem;
+}
+
+/* Voting */
+.voting-container {
+  text-align: center;
+  margin-top: 20vh;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.matchup-row {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider {
+  font-size: 1.5rem;
+}
+
+.skip-link {
+  display: block;
+  margin-top: 3rem;
+  font-size: 1rem;
+  font-style: italic;
+  width: 100%;
+}
+
+/* Ranking */
+.ranking-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.ranking-table td {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.ranking-table .rank {
+  width: 30px;
+  color: #666;
+}
+
+.ranking-table .elo {
+  text-align: right;
+  color: #666;
+}
+
+/* Images */
+/* Images */
+.author-img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.tiny-img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-form input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid black;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  outline: none;
+}
